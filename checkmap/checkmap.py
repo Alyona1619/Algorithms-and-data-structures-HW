@@ -1,83 +1,50 @@
+import sys
 import time
 import matplotlib.pyplot as plt
 
+#  c++ data
 data = [float(value) for value in input().split()]
+map_memory =  list(map(float, data[1::2]))
+map_time =  list(map(float, data[::2]))
+map_amount = [10**i for  i in range(0, 8)]
 
-
-amount = [pow(10, i) for  i in range(0, 6)]
-    memloc_times = []
-    memory_usage = []
-    for i in elements_count:
-        memloc_times.append(py_memory_allocation(i) * 1000) #Time usage in milliseconds
-        memory_usage.append(8 * i / 1024.0) #memory usage in Kbs
-for j in range(0, 6):
-    dict.clear()
-    begin = time.perf_counter()
-    dict = {i: i for i in range(j)}
-    finish = time.perf_counter()
+# work with python dict
+dict_amount = [pow(10, i) for i in range(0, 6)]
+dict_time = []
+dict_memory = []
+for i in dict_amount:
+    begin = time.time()
+    dict = {j: j for j in range(i)}
+    finish = time.time()
     elapsed = finish-begin
-    
-
-
-
-
-def process_cpp_data():
-    """Reads data from iostream, builds figure with 2 graphs:
-        1) Memory usage of C++ Map
-        2) Elements adding Time Usage
-    """
-    data = [float(value) for value in input().split()]
-    map_memory_usage =  [float(data[i]) for i in range(len(data)) if i%2]
-    map_adding_time =  [float(data[i]) for i in range(len(data)) if not i%2]
-    elements_count = [pow(10, i) for  i in range(0, 8)]
-    figure, (tm, mem) = plt.subplots(1, 2)
-    
-
-    figure.suptitle('C++ Map Graphs', fontsize=16)
-    
-    tm.plot(elements_count, map_adding_time)
-    tm.set_title("C++ Map Elements Adding Graph")
-    tm.set_xlabel("Amount of Elements")
-    tm.set_ylabel("Time, Milliseconds")
-    
-    mem.plot(elements_count, map_memory_usage)
-    mem.set_title("C++ Map's Memory Usage")
-    mem.set_xlabel("Amount of Elements")
-    mem.set_ylabel("Memory, Kb")
-    plt.show()
-    
-
-def py_memory_allocation(amount_of_elements: int) -> float:
-    """
-    Creates dictionary with 10^n elements and records how much time does it need
-    """
-    t = time.perf_counter()
-    dict = {i: i for i in range(amount_of_elements)}
-    elapsed = (time.perf_counter()-t)
+    dict_time.append(elapsed*1000) #ms
+    dict_memory.append(sys.getsizeof(dict)/1024) #kb
     dict.clear()
-    return elapsed
 
-    
-def process_python_data():
-    """Does the same things as process_cpp_data but for python Dictionary """
-    elements_count = [pow(10, i) for  i in range(0, 6)]
-    memloc_times = []
-    memory_usage = []
-    for i in elements_count:
-        memloc_times.append(py_memory_allocation(i) * 1000) #Time usage in milliseconds
-        memory_usage.append(8 * i / 1024.0) #memory usage in Kbs
-    figure, (tm, mem) = plt.subplots(1, 2)
-    
+# graphs for time
+figure, (cpp, py) = plt.subplots(1, 2)
+figure.suptitle('Execution speed', fontsize=14)
+cpp.plot(map_amount, map_time)
+cpp.set_title("Map")
+cpp.set_xlabel("Amount of elements")
+cpp.set_ylabel("Time (ms)")
 
-    figure.suptitle('Python Dictionary Graphs', fontsize=16)
-    
-    tm.plot(elements_count, memloc_times)
-    tm.set_title("Python Dict. Elements Adding Graph")
-    tm.set_xlabel("Amount of Elements")
-    tm.set_ylabel("Time, Milliseconds")
-    
-    mem.plot(elements_count, memory_usage)
-    mem.set_title("Python Dict's Memory Usage")
-    mem.set_xlabel("Amount of Elements")
-    mem.set_ylabel("Memory, Kb")
-    plt.show()
+py.plot(dict_amount, dict_time)
+py.set_title("Dict")
+py.set_xlabel("Amount of elements")
+py.set_ylabel("Time (ms)")
+plt.show()
+
+# graphes for memory
+figure, (cpp, py) = plt.subplots(1, 2)
+figure.suptitle('Required amount of memory', fontsize=14)
+cpp.plot(map_amount, map_memory)
+cpp.set_title("Map")
+cpp.set_xlabel("Amount of elements")
+cpp.set_ylabel("Memory (Kb)")
+
+py.plot(dict_amount, dict_memory)
+py.set_title("Dict")
+py.set_xlabel("Amount of elements")
+py.set_ylabel("Memory (Kb)")
+plt.show()
