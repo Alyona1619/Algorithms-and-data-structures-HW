@@ -35,7 +35,7 @@ py.set_xlabel("Amount of elements")
 py.set_ylabel("Time (ms)")
 plt.show()
 
-# graphes for memory
+# graphs for memory
 figure, (cpp, py) = plt.subplots(1, 2)
 figure.suptitle('Required amount of memory', fontsize=14)
 cpp.plot(map_amount, map_memory)
