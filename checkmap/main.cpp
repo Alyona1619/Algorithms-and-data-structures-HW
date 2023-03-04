@@ -24,7 +24,7 @@ int main(){
 		
 
 	auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(finish - begin);
-	double b = (2 * sizeof(int) * my_map.size() + sizeof(my_map)) / 1024.0;
+	    
 	std::cout << elapsed_ms.count() << " " << (2 * sizeof(int) * my_map.size() + sizeof(my_map)) / 1024.0 << " "; //kb
     }
     std::cout << std::endl;
