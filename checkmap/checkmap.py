@@ -13,9 +13,9 @@ dict_amount = [pow(10, i) for i in range(0, 6)]
 dict_time = []
 dict_memory = []
 for i in dict_amount:
-    begin = time.time()
+    begin = time.perf_counter()
     dict = {j: j for j in range(i)}
-    finish = time.time()
+    finish = time.perf_counter()
     elapsed = finish-begin
     dict_time.append(elapsed*1000) #ms
     dict_memory.append(sys.getsizeof(dict)/1024) #kb
