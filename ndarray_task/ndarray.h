@@ -1,8 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <time.h>
-#include <cassert>
-#include <climits>
 
 template <typename T> class NDArray {
 
@@ -30,15 +27,15 @@ template <typename T> class NDArray {
             //    array.push_back(data);
         };
 
-        NDArray(std::vector<int>* sh, std::vector<T> data = {}){
+        NDArray(std::vector<int> sh, std::vector<T> data = {}){
             len = 1;
-            for (auto v : *sh) {
+            for (auto v : sh) {
                 len *= v;
                 shape.push_back(v);
             }
 
             if (data.empty()) {
-                array = std::vector<int>(len, 0);
+                array = std::vector<T>(len, 0);
             } else {
                 array = data;
             }
