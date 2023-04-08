@@ -15,7 +15,8 @@ all:
 	$(CC) ${CFLAGS} -o ${TARGET} ${SOURCES}
 
 clean:
+	echo $(OS)
 	${RM} ${TARGET}
 
 run: all
-	${TARGET}
+	./${TARGET}
